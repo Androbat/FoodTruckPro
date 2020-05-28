@@ -1,18 +1,14 @@
 import sqlalchemy as db
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
-
+from models import Base, User
 # To use the ORM, we need to create a session maker
 from sqlalchemy.orm import sessionmaker
-
-from DBConn.Connection import DB_Conn
-conn = DB_Conn()
-engine = conn.get_engine()
-
+URL = 'sqlite:///db.sqlite3'
+engine = db.create_engine(URL,echo=True)
 # To create tables, we need to use to use the next object
 Session = sessionmaker(bind=engine)
-Base = declarative_base()
-
+session = Session()
+Base.metadata.create_all(engine)
 
 
 
